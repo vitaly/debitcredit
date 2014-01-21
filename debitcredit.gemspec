@@ -7,15 +7,16 @@ require "debitcredit/version"
 Gem::Specification.new do |s|
   s.name        = "debitcredit"
   s.version     = Debitcredit::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Debitcredit."
-  s.description = "TODO: Description of Debitcredit."
+  s.authors     = ["Vitaly Kushner"]
+  s.email       = ["vitaly@astrails.com"]
+  s.homepage    = "http://github.com/astrails/debitcredit"
+  s.summary     = "Double entry accounting for Rails applications"
+  s.description = "Double entry accounting for Rails applications"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
 
   s.add_dependency "rails", "~> 4.0.2"
 
   s.add_development_dependency "sqlite3"
+  s.add_development_dependency "rspec-rails"
 end
