@@ -11,12 +11,17 @@ Expense and Equity.
 
 In each transaction, sources are credited and destinations are debited.
 
-Debit and Credit affect balance of an account differently depending on the
+I repeat: credit is the **source** and debit is the **destination**.
+
+debit and credit affect balance of an account differently depending on the
 account type.
 
-For Asset and Expense accounts, Debit increases the balance, and Credit
-decreases it. For the rest of the accounts it is the opposite. i.e. Debit
-decreases and Credit increases the balance.
+For Asset and Expense accounts, Debit increases the balance, and credit
+decreases it. For the rest of the accounts it is the opposite. i.e. debit
+decreases and credit increases the balance.
+
+## 
+Assets + Expenses = Liabilities + Equity + Income
 
 
 

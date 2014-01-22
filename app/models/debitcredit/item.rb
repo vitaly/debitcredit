@@ -3,7 +3,7 @@ module Debitcredit
     belongs_to :transaction
     belongs_to :account
 
-    validate :references, :account, presence: true
+    validate :transaction, :account, presence: true
     validate :amount, numericality: true, greater_than_or_equal_to: 0
 
     private

@@ -1,0 +1,29 @@
+equipment:
+  name: 'aquipment'
+  type: Debitcredit::AssetAccount
+  balance: 10_000
+
+rent:
+  name: 'rent'
+  type: Debitcredit::ExpenseAccount
+  balance: 000
+
+bank:
+  name: 'bank'
+  type: Debitcredit::AssetAccount
+  balance: 100_000
+
+salary:
+  name: 'salary'
+  type: Debitcredit::IncomeAccount
+  balance: 0
+
+amex:
+  name: 'amex'
+  type: Debitcredit::LiabilityAccount
+  balance: 10_000
+
+capital:
+  name: 'capital'
+  type: Debitcredit::EquityAccount
+  balance: 100_000
