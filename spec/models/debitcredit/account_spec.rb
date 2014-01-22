@@ -20,6 +20,31 @@ module Debitcredit
       it 'should initially be true' do
         expect(Account).to be_balanced
       end
+
+      it 'should be false if out of balance' do
+        @equipment.balance += 1
+        @equipment.save!
+        expect(Account).to_not be_balanced
+      end
+
+      it 'A + Ex = L + E + I' do # 5 + 9 = 2 + 4 + 8
+        @equipment.balance += 5
+        @equipment.save!
+
+        @rent.balance += 9
+        @rent.save!
+
+        @amex.balance += 2
+        @amex.save!
+
+        @capital.balance += 4
+        @capital.save!
+
+        @salary.balance += 8
+        @salary.save!
+
+        expect(Account).to be_balanced
+      end
     end
   end
 end

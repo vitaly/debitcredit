@@ -6,7 +6,7 @@ equipment:
 rent:
   name: 'rent'
   type: Debitcredit::ExpenseAccount
-  balance: 000
+  balance: 0
 
 bank:
   name: 'bank'
