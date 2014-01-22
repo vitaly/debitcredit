@@ -1,8 +1,8 @@
 module ValidFixturesExample
   shared_examples :valid_fixtures do |n|
     it 'should have valid fixtures' do
-      described_class.count.should == n if n
-      described_class.find_each {|du| du.should be_valid}
+      expect(described_class.count).to eq(n) if n
+      described_class.find_each {|du| expect(du).to be_valid}
     end
   end
 end

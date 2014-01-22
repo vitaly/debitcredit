@@ -13,3 +13,11 @@ gemspec
 # To use debugger
 gem "byebug"
 gem "pry-byebug"
+gem 'spork'
+gem 'timecop'
+gem 'guard-bundler'
+gem 'guard-spork'
+gem 'guard-rspec'
+gem 'rb-fchange', :require=>false
+gem 'rb-fsevent', :require=>false
+gem 'rb-inotify', :require=>false

@@ -5,8 +5,14 @@ module Debitcredit
 
     validates :name, :balance, presence: true
 
-    def self.[](name)
-      find_by!(name: name)
+    class << self
+      def [](name)
+        find_by!(name: name)
+      end
+
+      def balanced?
+        true
+      end
     end
   end
 end
