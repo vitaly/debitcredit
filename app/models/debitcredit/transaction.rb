@@ -4,12 +4,25 @@ module Debitcredit
     belongs_to :reference, polymorphic: true
     has_many :items, dependent: :destroy, autosave: true, validate: true
 
-    validate :reference, :description, presence: true
+    validates :reference, :description, presence: true
+    validate :ensure_balanced
 
-    def self.execute(opts = {}, &block)
-      tr = new(opts)
-      builder = Debitcredit::Transaction::DSL.new(tr)
-      Docile.dsl_eval(builder, &block).execute!
+    def self.build(opts = {}, &block)
+      new(opts).tap do |t|
+        Docile.dsl_eval(DSL.new(t), &block)
+      end
+    end
+
+    def items_balance
+      items.map(&:value_for_balance).sum
+    end
+
+    def balanced?
+      0 == items_balance
+    end
+
+    def ensure_balanced
+      errors.add(:base, :unbalanced) unless balanced?
     end
   end
 end

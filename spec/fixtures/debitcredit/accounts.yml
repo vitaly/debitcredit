@@ -7,23 +7,28 @@ rent:
   name: 'rent'
   type: Debitcredit::ExpenseAccount
   balance: 0
+  reference: john (User)
 
 bank:
   name: 'bank'
   type: Debitcredit::AssetAccount
   balance: 100_000
+  reference: john (User)
 
 salary:
   name: 'salary'
   type: Debitcredit::IncomeAccount
   balance: 0
+  reference: john (User)
 
 amex:
   name: 'amex'
   type: Debitcredit::LiabilityAccount
   balance: 10_000
+  reference: john (User)
 
 capital:
   name: 'capital'
   type: Debitcredit::EquityAccount
   balance: 100_000
+  reference: john (User)

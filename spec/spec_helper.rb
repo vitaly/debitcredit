@@ -76,5 +76,6 @@ Spork.each_run do
   if Spork.using_spork?
     ActiveRecord::Base.establish_connection
     ActiveRecord::Base.shared_connection = ActiveRecord::Base.retrieve_connection
+    I18n.reload!
   end
 end

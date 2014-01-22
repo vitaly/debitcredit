@@ -1,3 +1,4 @@
 laptop_purchase:
   kind: 'purchase'
   description: 'apple MBPr'
+  reference: john (User)

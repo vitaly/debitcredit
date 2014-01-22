@@ -6,6 +6,17 @@ module Debitcredit
     validate :transaction, :account, presence: true
     validate :amount, numericality: true, greater_than_or_equal_to: 0
 
+    scope :debit, ->{where(debit: true)}
+    scope :credit, ->{where(debit: false)}
+
+    def credit?
+      !debit?
+    end
+
+    def value_for_balance
+      credit?? amount : -amount
+    end
+
     private
 
     def kind
