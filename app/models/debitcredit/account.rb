@@ -5,6 +5,12 @@ module Debitcredit
 
     validates :name, :balance, presence: true
 
+    scope :asset,     ->{where(type: AssetAccount.name)}
+    scope :equity,    ->{where(type: EquityAccount.name)}
+    scope :liability, ->{where(type: LiabilityAccount.name)}
+    scope :expense,   ->{where(type: ExpenseAccount.name)}
+    scope :income,    ->{where(type: IncomeAccount.name)}
+
     scope :by_id, ->{order(:id)}
 
     class << self
@@ -13,11 +19,11 @@ module Debitcredit
       end
 
       def total_balance
-        + AssetAccount.sum(:balance) \
-        + ExpenseAccount.sum(:balance) \
-        - LiabilityAccount.sum(:balance) \
-        - EquityAccount.sum(:balance) \
-        - IncomeAccount.sum(:balance)
+        + asset.sum(:balance) \
+        + expense.sum(:balance) \
+        - liability.sum(:balance) \
+        - equity.sum(:balance) \
+        - income.sum(:balance)
       end
 
       def balanced?
