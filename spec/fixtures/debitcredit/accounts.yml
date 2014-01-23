@@ -1,7 +1,8 @@
 equipment:
-  name: 'aquipment'
+  name: 'equipment'
   type: Debitcredit::AssetAccount
   balance: 10_000
+  reference: john (User)
 
 rent:
   name: 'rent'

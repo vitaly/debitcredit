@@ -15,6 +15,7 @@ class Debitcredit::Transaction::DSL
 
   private
   def build_item(debit, account, amount, comment)
+    account = transaction.reference.accounts[account] if account.is_a?(Symbol) && transaction.reference.try(:respond_to?, :accounts)
     transaction.items.build debit: debit, account: account, amount: amount, comment: comment
   end
 end
