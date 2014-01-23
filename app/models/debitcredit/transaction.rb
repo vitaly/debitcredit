@@ -2,10 +2,16 @@ require 'docile'
 module Debitcredit
   class Transaction < ActiveRecord::Base
     belongs_to :reference, polymorphic: true
-    has_many :items, dependent: :destroy, autosave: true, validate: true
+    has_many :items, dependent: :destroy, autosave: true
 
     validates :reference, :description, presence: true
     validate :ensure_balanced
+
+    before_create :lock_and_update_balances
+
+    # XXX
+    # prevent items and balance changes on update
+    # prevent update at all?
 
     def self.build(opts = {}, &block)
       new(opts).tap do |t|
@@ -21,8 +27,15 @@ module Debitcredit
       0 == items_balance
     end
 
+    protected
     def ensure_balanced
       errors.add(:base, :unbalanced) unless balanced?
+    end
+
+    def lock_and_update_balances
+      items.sort_by(&:account_id).each do |item|
+        item.account.lock!.update_balance!(item)
+      end
     end
   end
 end

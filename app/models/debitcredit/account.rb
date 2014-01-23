@@ -27,5 +27,10 @@ module Debitcredit
         end
       end
     end
+
+    def update_balance!(item)
+      item.balance = send(item.kind, item.amount)
+      save!
+    end
   end
 end

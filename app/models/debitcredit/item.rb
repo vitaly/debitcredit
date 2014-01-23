@@ -17,14 +17,8 @@ module Debitcredit
       credit?? amount : -amount
     end
 
-    private
-
     def kind
       debit?? :debit : :credit
-    end
-
-    def update_balance
-      self.balance = account.send(kind, amount)
     end
   end
 end
