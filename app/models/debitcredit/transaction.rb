@@ -13,7 +13,7 @@ module Debitcredit
     # prevent items and balance changes on update
     # prevent update at all?
 
-    def self.build(opts = {}, &block)
+    def self.prepare(opts = {}, &block)
       new(opts).tap do |t|
         Docile.dsl_eval(DSL.new(t), &block)
       end

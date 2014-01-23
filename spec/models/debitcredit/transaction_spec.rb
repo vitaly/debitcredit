@@ -6,14 +6,14 @@ module Debitcredit
       {description: 'something', reference: @john}
     end
 
-    def build(opts = {}, &b)
-      @r = Transaction.build(valid_attrs.merge(opts), &b)
+    def prepare(opts = {}, &b)
+      @r = Transaction.prepare(valid_attrs.merge(opts), &b)
     end
 
     describe :validations do
       include_examples :valid_fixtures
       it 'should be valid with balanced items' do
-        t = build do
+        t = prepare do
           credit @bank, 100
           credit @amex, 1_000
           debit @rent, 1_100
@@ -23,7 +23,7 @@ module Debitcredit
       end
 
       it 'should not be valid with unbalanced items' do
-        t = build do
+        t = prepare do
           credit @amex, 1_000
           debit @rent, 999
         end
@@ -38,7 +38,7 @@ module Debitcredit
         @amex2 = Account[:amex]
         expect(@amex2.balance).to eq(10_000)
 
-        t = build do
+        t = prepare do
           debit @equipment, 1_100
           credit @bank, 1_000
           credit @amex, 50
