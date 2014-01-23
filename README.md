@@ -1,5 +1,8 @@
 # Debitcredit
 
+[![Build Status](https://travis-ci.org/vitaly/debitcredit.png)](https://travis-ci.org/vitaly/debitcredit)
+[![Code Climate](https://codeclimate.com/github/vitaly/debitcredit.png)](https://codeclimate.com/github/vitaly/debitcredit)
+
 Double Entry Accounting for Rails Applications
 
 ## Account Types, Debits and Credits
