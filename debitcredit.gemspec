@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "pry-byebug"
   s.add_development_dependency 'spork'
   s.add_development_dependency "spork-rails"
-  s.add_development_dependency 'timecop'
+  #s.add_development_dependency 'timecop'
   s.add_development_dependency 'guard-bundler'
   s.add_development_dependency 'guard-spork'
   s.add_development_dependency 'guard-rspec'
