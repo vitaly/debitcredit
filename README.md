@@ -23,10 +23,62 @@ For Asset and Expense accounts, Debit increases the balance, and credit
 decreases it. For the rest of the accounts it is the opposite. i.e. debit
 decreases and credit increases the balance.
 
-## 
-Assets + Expenses = Liabilities + Equity + Income
+## Accounting Equation
 
+At any given point accounts should satisfy the following equation:
 
+    Assets + Expenses = Liabilities + Equity + Income
+
+You can verify it with `Account.balanced?`.
+
+Debitcredit takes care to keep the system balanced at all times, if you get an
+unbalanced state, its a bug, please report immediately!
+
+## Accounts
+
+The 5 types of accounts are represented by `Debitcredit::AssetAccount`,
+`Debitcredit::LiabilityAccount`, `Debitcredit::IncomeAccount`, `Debitcredit::ExpenseAccount` and `Debitcredit::EquityAccount`
+
+You can create standalone accounts:
+
+    Debitcredit::AssetAccount.create name: 'asset'
+    puts Debitcredit::Account[:asset].name
+
+Or you can have a reference for the account:
+
+    Debitcredit::AssetAccount.create name: 'asset', reference: User.first
+
+Or
+
+    class User
+      has_many :accounts, as: :reference, class_name: 'Debitcredit::Account'
+      ...
+    end
+
+    User.first.accounts.asset.create name: 'bank'
+    puts User.first.accounts[:bank].name
+
+## Transactions
+
+You can prepare transactions using DSL:
+
+    t = Transaction.prepare(description: 'rent payment') do
+      debit expense_account, 100, "you can also provide a comment"
+      credit bank_account, 50
+      credit creditcard, 50
+    end
+    t.save!
+
+Sum of the debits must be equal to the sum of the credits. Amounts can not be
+negative.
+
+You can create transactions with a reference. For this case, and in case that
+reference has 'accounts' association, you can use account names instead of objects:
+
+    t = user1.transactions.prepare(description: 'sale') do
+      debit :checking, 100 # will use user1.accounts[:checking]
+      credit user2.accounts[:checking], 100
+    end
 
 ## Contributing
 
