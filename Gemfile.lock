@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    debitcredit (0.0.2)
+    debitcredit (0.0.3)
       docile
       rails (~> 4.0.2)
 
