@@ -2,6 +2,7 @@ require 'docile'
 module Debitcredit
   class Transaction < ActiveRecord::Base
     belongs_to :reference, polymorphic: true
+    belongs_to :parent_transaction, class_name: 'Debitcredit::Transaction'
     has_many :items, dependent: :destroy, autosave: true
 
     validates :reference, :description, presence: true

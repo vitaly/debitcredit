@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140121193940) do
+ActiveRecord::Schema.define(version: 20140128131859) do
 
   create_table "debitcredit_accounts", force: true do |t|
     t.string   "name",           limit: 16,                                        null: false
@@ -41,13 +41,15 @@ ActiveRecord::Schema.define(version: 20140121193940) do
 
   create_table "debitcredit_transactions", force: true do |t|
     t.integer  "reference_id"
-    t.string   "reference_type", limit: 32
+    t.string   "reference_type",        limit: 32
     t.string   "kind"
-    t.string   "description",               null: false
+    t.string   "description",                      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "parent_transaction_id"
   end
 
+  add_index "debitcredit_transactions", ["parent_transaction_id"], name: "index_debitcredit_transactions_on_parent_transaction_id"
   add_index "debitcredit_transactions", ["reference_id", "reference_type", "id"], name: "rindex"
 
   create_table "users", force: true do |t|
