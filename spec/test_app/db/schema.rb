@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140128131859) do
+ActiveRecord::Schema.define(version: 20140128134203) do
 
   create_table "debitcredit_accounts", force: true do |t|
-    t.string   "name",           limit: 16,                                        null: false
+    t.string   "name",           limit: 32,                                        null: false
     t.string   "type",           limit: 32,                                        null: false
     t.integer  "reference_id"
     t.string   "reference_type", limit: 32
