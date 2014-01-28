@@ -5,6 +5,8 @@ module Debitcredit
 
     validates :name, :balance, presence: true
 
+    validates :balance, numericality: {greater_than_or_equal_to: 0}, unless: :overdraft_enabled?
+
     scope :asset,     ->{where(type: AssetAccount.name)}
     scope :equity,    ->{where(type: EquityAccount.name)}
     scope :liability, ->{where(type: LiabilityAccount.name)}

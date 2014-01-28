@@ -11,16 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140128134203) do
+ActiveRecord::Schema.define(version: 20140128153104) do
 
   create_table "debitcredit_accounts", force: true do |t|
-    t.string   "name",           limit: 32,                                        null: false
-    t.string   "type",           limit: 32,                                        null: false
+    t.string   "name",              limit: 32,                                         null: false
+    t.string   "type",              limit: 32,                                         null: false
     t.integer  "reference_id"
-    t.string   "reference_type", limit: 32
-    t.decimal  "balance",                   precision: 20, scale: 2, default: 0.0, null: false
+    t.string   "reference_type",    limit: 32
+    t.decimal  "balance",                      precision: 20, scale: 2, default: 0.0,  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "overdraft_enabled",                                     default: true, null: false
   end
 
   add_index "debitcredit_accounts", ["name", "reference_id", "reference_type"], name: "uindex", unique: true

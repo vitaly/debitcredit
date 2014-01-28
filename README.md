@@ -58,6 +58,9 @@ Or
     User.first.accounts.asset.create name: 'bank'
     puts User.first.accounts[:bank].name
 
+You can pass `overdraft_enabled: true` to prevent account from ever having a
+negative balance.
+
 ## Transactions
 
 You can prepare transactions using DSL:

@@ -2,7 +2,26 @@ require 'spec_helper'
 
 module Debitcredit
   describe Account do
-    include_examples :valid_fixtures
+    def described_class; Debitcredit::AssetAccount; end
+    def valid_attrs
+      {name: 'foo'}
+    end
+    describe :validations do
+      include_examples :valid_fixtures
+      it 'should prevent negative balance in case of overdraft_enabled? = false' do
+        record(overdraft_enabled: false).save!
+        record.balance = -1
+        expect(record).to_not be_valid
+        expect(record.errors[:balance]).to_not be_blank
+      end
+
+       it 'should allow negative balance in case of overdraft_enabled? = true' do
+        record(overdraft_enabled: true).save!
+        record.balance = -1
+        expect(record).to be_valid
+        expect(record.errors[:balance]).to be_blank
+       end
+    end
 
     describe :[] do
       it 'should find account by name' do
