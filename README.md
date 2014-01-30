@@ -10,7 +10,29 @@ Double Entry Accounting for Rails Applications
 <http://en.wikipedia.org/wiki/Debits_and_credits>
 
 In Double Entry Accounting there are 5 account types: Asset, Liability, Income,
-Expense and Equity.
+Expense and Equity defined as follows:
+
+**Asset** is a resource controlled by the entity as a result of past events and
+from which future economic benefits are expected to flow to the entity
+
+**Liability** is defined as an obligation of an entity arising from past
+transactions or events, the settlement of which may result in the transfer or
+use of assets, provision of services or other yielding of economic benefits in
+the future.
+
+**Income** is increases in economic benefits during the accounting period in
+the form of inflows or enhancements of assets or decreases of liabilities that
+result in increases in equity, other than those relating to contributions from
+equity participants.
+
+**Expense** is a decrease in economic benefits during the accounting period in
+the form of outflows or depletions of assets or incurrences of liabilities that
+result in decreases in equity, other than those relating to distributions to
+equity participants.
+
+**Equity** consists of the net assets of an entity. Net assets is the
+difference between the total assets of the entity and all its liabilities.
+
 
 In each transaction, sources are credited and destinations are debited.
 
