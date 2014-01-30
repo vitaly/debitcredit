@@ -10,13 +10,16 @@ module Debitcredit
 
     before_create :lock_and_update_balances
 
-    # XXX
-    # prevent items and balance changes on update
-    # prevent update at all?
-
     def self.prepare(opts = {}, &block)
       new(opts).tap do |t|
         Docile.dsl_eval(DSL.new(t), &block)
+      end
+    end
+
+    attr_accessor :ignore_overdraft
+    def inverse(opts = {})
+      self.class.new({ignore_overdraft: true}.merge(opts)) do |res|
+        res.items = items.map(&:inverse)
       end
     end
 
@@ -25,17 +28,18 @@ module Debitcredit
     end
 
     def balanced?
-      0 == items_balance
+      items_balance.zero?
     end
 
     protected
+
     def ensure_balanced
       errors.add(:base, :unbalanced) unless balanced?
     end
 
     def lock_and_update_balances
       items.sort_by(&:account_id).each do |item|
-        item.account.lock!.update_balance!(item)
+        item.account.lock!.update_balance!(item, !ignore_overdraft)
       end
     end
   end

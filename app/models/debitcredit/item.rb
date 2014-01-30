@@ -20,5 +20,9 @@ module Debitcredit
     def kind
       debit?? :debit : :credit
     end
+
+    def inverse
+      self.class.new account: account, transaction: transaction, amount: amount, debit: credit?
+    end
   end
 end

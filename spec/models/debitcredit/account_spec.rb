@@ -12,12 +12,18 @@ module Debitcredit
       context 'when overdraft disabled' do
         def extra_attrs; {overdraft_enabled: false} end
 
-        it 'should prevent negative balance in case of overdraft_enabled? = false' do
+        it 'should prevent negative balance' do
           record.save!
           record.check_overdraft = true
           record.balance = -1
           expect(record).to_not be_valid
           expect(record.errors[:balance]).to_not be_blank
+        end
+
+        it 'should ignore overdraft when check_overdraft is false' do
+          record.save!
+          record.balance = -1
+          expect(record).to be_valid
         end
 
         it 'should allow keeping negative balance' do

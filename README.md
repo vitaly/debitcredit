@@ -80,8 +80,8 @@ Or
     User.first.accounts.asset.create name: 'bank'
     puts User.first.accounts[:bank].name
 
-You can pass `overdraft_enabled: true` to prevent account from ever having a
-negative balance.
+By default accounts are prevented from having a negative balance, but you can
+pass `overdraft_enabled: false` to allow it.
 
 ## Transactions
 
@@ -104,6 +104,15 @@ reference has 'accounts' association, you can use account names instead of objec
       debit :checking, 100 # will use user1.accounts[:checking]
       credit user2.accounts[:checking], 100
     end
+
+You can prepare an inverse transaction. For example if you want to rollback an
+existing transaction:
+
+rollback = existing.inverse(kind: 'refund', description: 'item is out of stock')
+rollback.save!
+
+> Note: by inverse transactions are allowed to take accounts into overdraft. if
+> this is undesirable, pass `enable_overdraft` to the `inverse` call.
 
 ## Contributing
 
