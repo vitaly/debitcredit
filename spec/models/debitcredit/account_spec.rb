@@ -8,19 +8,50 @@ module Debitcredit
     end
     describe :validations do
       include_examples :valid_fixtures
-      it 'should prevent negative balance in case of overdraft_enabled? = false' do
-        record(overdraft_enabled: false).save!
-        record.balance = -1
-        expect(record).to_not be_valid
-        expect(record.errors[:balance]).to_not be_blank
+
+      context 'when overdraft disabled' do
+        def extra_attrs; {overdraft_enabled: false} end
+
+        it 'should prevent negative balance in case of overdraft_enabled? = false' do
+          record.save!
+          record.check_overdraft = true
+          record.balance = -1
+          expect(record).to_not be_valid
+          expect(record.errors[:balance]).to_not be_blank
+        end
+
+        it 'should allow keeping negative balance' do
+          record(balance: -10).save
+          record.check_overdraft = true
+          expect(record).to be_valid
+        end
+
+        it 'should allow + on negative balance' do
+          record(balance: -10).save
+          record.check_overdraft = true
+          record.balance = -5
+          expect(record).to be_valid
+        end
+
+        it 'should allow - on positive balance' do
+          record(balance: 10).save
+          record.check_overdraft = true
+          record.balance = 5
+          expect(record).to be_valid
+        end
       end
 
-       it 'should allow negative balance in case of overdraft_enabled? = true' do
-        record(overdraft_enabled: true).save!
-        record.balance = -1
-        expect(record).to be_valid
-        expect(record.errors[:balance]).to be_blank
-       end
+      context 'when overdraft enabled' do
+        def extra_attrs; {overdraft_enabled: true} end
+
+        it 'should allow negative balance in case of overdraft_enabled? = true' do
+          record.save!
+          record.balance = -1
+          expect(record).to be_valid
+          expect(record.errors[:balance]).to be_blank
+        end
+      end
+
     end
 
     describe :[] do

@@ -5,4 +5,6 @@ en:
       models:
         debitcredit/transaction:
           unbalanced: item amounts must balance to 0
+        debitcredit/account:
+          overdraft: overdraft is not allowed
 

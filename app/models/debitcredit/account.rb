@@ -4,8 +4,7 @@ module Debitcredit
     has_many :items, dependent: :destroy
 
     validates :name, :balance, presence: true
-
-    validates :balance, numericality: {greater_than_or_equal_to: 0}, unless: :overdraft_enabled?
+    validate :prevent_overdraft, unless: :overdraft_enabled?
 
     scope :asset,     ->{where(type: AssetAccount.name)}
     scope :equity,    ->{where(type: EquityAccount.name)}
@@ -36,9 +35,26 @@ module Debitcredit
       end
     end
 
-    def update_balance!(item)
+    attr_accessor :check_overdraft
+    def update_balance!(item, check_overdraft = true)
       item.balance = send(item.kind, item.amount)
+      self.check_overdraft = check_overdraft
       save!
+    end
+
+    def overdraft?
+      balance < 0
+    end
+
+    protected
+
+    def prevent_overdraft
+      return unless balance_changed?
+      return unless check_overdraft
+      return unless balance < 0
+      return unless balance_was > balance
+
+      errors.add(:balance, :overdraft)
     end
   end
 end

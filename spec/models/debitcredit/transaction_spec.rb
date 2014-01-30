@@ -55,6 +55,16 @@ module Debitcredit
         expect(@amex.reload.balance).to      eq 10_100
         expect(@amex2.reload.balance).to     eq 10_100
       end
+
+      it 'should fail to overdraft' do
+        t = prepare do
+          credit @bank, 100_000.1
+          debit @equipment, 100_000.1
+        end
+        expect {
+          t.save!
+        }.to raise_error(ActiveRecord::RecordInvalid)
+      end
     end
 
     describe :prepare do

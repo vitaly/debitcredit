@@ -1,6 +1,10 @@
 module RecordHelpers
-  def _record(attrs = {})
-    described_class.new(valid_attrs.merge(attrs))
+  def record_class; described_class; end
+
+  def _record(o = {})
+    attrs = valid_attrs
+    attrs = attrs.merge(extra_attrs) if respond_to?(:extra_attrs)
+    record_class.new(attrs.merge(o))
   end
 
   def record(attrs = {})
