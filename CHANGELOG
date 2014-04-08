@@ -1,2 +1,5 @@
+* 0.0.6
+  - include README in the gem
+
 * 0.0.5
   - has_accounts and has_transactions extension
