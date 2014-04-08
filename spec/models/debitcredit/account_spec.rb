@@ -3,9 +3,15 @@ require 'spec_helper'
 module Debitcredit
   describe Account do
     def described_class; Debitcredit::AssetAccount; end
-    def valid_attrs
-      {name: 'foo'}
+    def valid_attrs; {name: 'foo'} end
+
+    describe :by_kind do
+      it 'should find account class by kind' do
+        klass = Account.by_kind(:asset)
+        expect(klass).to eq(AssetAccount)
+      end
     end
+
     describe :validations do
       include_examples :valid_fixtures
 
@@ -57,7 +63,6 @@ module Debitcredit
           expect(record.errors[:balance]).to be_blank
         end
       end
-
     end
 
     describe :[] do
@@ -65,10 +70,42 @@ module Debitcredit
         expect(Account[:amex]).to eq(@amex)
       end
 
-      it 'should raise on fail' do
+      it 'should find account by name and kind' do
+        expect(Account[:amex, :liability]).to eq(@amex)
+      end
+
+      it 'should create account if kind is provided and none exists' do
+        expect {
+          foo = Account[:foo, :expense]
+          expect(foo.class).to eq(ExpenseAccount)
+          expect(foo.name).to eq('foo')
+          expect(foo.balance).to eq(0)
+        }.to change(Account, :count).by(1)
+      end
+
+      it 'should raise error if none exists and not kind provided' do
         expect {
           Account[:foo]
-        }.to raise_error(ActiveRecord::RecordNotFound)
+        }.to raise_error(Account::NotFound, /not found/)
+      end
+
+      it 'should update overdraft if different' do
+        expect(@rent).not_to be_overdraft_enabled
+        Account[:rent, :expense, true]
+        expect(@rent.reload).to be_overdraft_enabled
+      end
+
+      it 'should raise on different kind' do
+        expect {
+          Account[:rent, :asset]
+        }.to raise_error(Account::BadKind)
+      end
+
+      it 'should create with reference' do
+        balance = @john.accounts.balance
+        expect(balance.reference).to eq @john
+        expect(balance.class).to eq AssetAccount
+        expect(balance.name).to eq 'balance'
       end
     end
 

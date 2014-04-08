@@ -1,3 +1,4 @@
+require 'docile'
 module Debitcredit
   class Account < ActiveRecord::Base
     belongs_to :reference, polymorphic: true
@@ -14,9 +15,32 @@ module Debitcredit
 
     scope :by_id, ->{order(:id)}
 
+    class NotFound < StandardError; end
+    class BadKind < StandardError; end
     class << self
-      def [](name)
-        find_by!(name: name)
+      def by_kind kind
+        Debitcredit.const_get "#{kind.to_s.capitalize}Account"
+      end
+
+      def [](name, kind = nil, overdraft = false)
+
+        unless account = find_by(name: name)
+          # XXX reference from @association.owner
+          raise NotFound, "account #{name} not found. Provide kind to create a new one" unless kind
+
+          return by_kind(kind).create!(
+            name: name.to_s,
+            overdraft_enabled: overdraft
+          )
+        end
+
+        raise BadKind if kind && by_kind(kind) != account.class
+
+        if overdraft != account.overdraft_enabled?
+          account.update_attributes! overdraft_enabled: overdraft
+        end
+
+        return account
       end
 
       def total_balance

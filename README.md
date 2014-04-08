@@ -80,8 +80,33 @@ Or
     User.first.accounts.asset.create name: 'bank'
     puts User.first.accounts[:bank].name
 
+Or better yet:
+
+    class User
+      include Debitcredit::Extension
+
+      has_accounts
+      has_transactions
+    end
+
 By default accounts are prevented from having a negative balance, but you can
-pass `overdraft_enabled: false` to allow it.
+pass `overdraft_enabled: false` to allow it:
+
+    Debitcredit::AssetAccount.create ..., overdraft_enabled: true
+
+You can pass a block to `has_accounts` and to define referenced accounts:
+
+    class User
+      include Debitcredit::Extension
+
+      has_accounts do
+        income :salary
+        expense :rent
+        asset :checking, true # allow negative balance
+      end
+    end
+
+    User.first.accounts.salary # will be created on first use
 
 ## Transactions
 
