@@ -3,8 +3,15 @@ class User < ActiveRecord::Base
 
   has_accounts do
     asset :cash
+
+    def accounts_method
+      :ok
+    end
   end
 
-  has_transactions
-
+  has_transactions do
+    def transactions_method
+      :ok
+    end
+  end
 end

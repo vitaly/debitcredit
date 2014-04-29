@@ -14,7 +14,7 @@ module Debitcredit
       def has_accounts(&block)
         has_many :accounts, as: :reference, class_name: 'Debitcredit::Account', inverse_of: :reference do
           extend ProxyMethods
-          instance_eval &block if block
+          class_eval(&block) if block
         end
       end
 
@@ -23,7 +23,7 @@ module Debitcredit
           def [](kind)
             find_by kind: kind
           end
-          instance_eval &block if block
+          class_eval(&block) if block
         end
       end
     end
