@@ -1,5 +1,6 @@
 * 0.0.7
   - has_transactions with a block
+  - has_transactions now defines :[](kind) on transactions association
 
 * 0.0.6
   - include README in the gem

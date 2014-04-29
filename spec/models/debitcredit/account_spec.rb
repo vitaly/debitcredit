@@ -102,10 +102,10 @@ module Debitcredit
       end
 
       it 'should create with reference' do
-        balance = @john.accounts.balance
-        expect(balance.reference).to eq @john
-        expect(balance.class).to eq AssetAccount
-        expect(balance.name).to eq 'balance'
+        foo = @john.accounts[:foo, :asset]
+        expect(foo.reference).to eq @john
+        expect(foo.class).to eq AssetAccount
+        expect(foo.name).to eq 'foo'
       end
     end
 

@@ -20,6 +20,9 @@ module Debitcredit
 
       def has_transactions(&block)
         has_many :transactions, as: :reference, class_name: 'Debitcredit::Transaction' do
+          def [](kind)
+            find_by kind: kind
+          end
           instance_eval &block if block
         end
       end
