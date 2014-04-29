@@ -86,7 +86,11 @@ Or better yet:
       include Debitcredit::Extension
 
       has_accounts
-      has_transactions
+      has_transactions do
+        def pay!
+          ...
+        end
+      end
     end
 
 By default accounts are prevented from having a negative balance, but you can

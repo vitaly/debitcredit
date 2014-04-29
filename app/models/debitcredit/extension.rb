@@ -14,12 +14,14 @@ module Debitcredit
       def has_accounts(&block)
         has_many :accounts, as: :reference, class_name: 'Debitcredit::Account', inverse_of: :reference do
           extend ProxyMethods
-          instance_eval &block
+          instance_eval &block if block
         end
       end
 
-      def has_transactions &block
-        has_many :transactions, as: :reference, class_name: 'Debitcredit::Transaction', &block
+      def has_transactions(&block)
+        has_many :transactions, as: :reference, class_name: 'Debitcredit::Transaction' do
+          instance_eval &block if block
+        end
       end
     end
   end

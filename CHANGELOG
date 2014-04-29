@@ -1,3 +1,6 @@
+* 0.0.7
+  - has_transactions with a block
+
 * 0.0.6
   - include README in the gem
 
