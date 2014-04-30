@@ -14,6 +14,47 @@ module Debitcredit
 
     describe :validations do
       include_examples :valid_fixtures
+
+      it 'should set kind' do
+        t = prepare do
+          kind 'foo'
+        end
+
+        expect(t.kind).to eq 'foo'
+      end
+
+      it 'should set description' do
+        t = prepare do
+          description 'bar'
+        end
+
+        expect(t.description).to eq 'bar'
+      end
+
+      it 'should set alias description' do
+        t = prepare do
+          desc 'baz'
+        end
+
+        expect(t.description).to eq 'baz'
+      end
+
+      it 'should set reference' do
+        t = prepare do
+          reference @bill
+        end
+
+        expect(t.reference).to eq @bill
+      end
+
+      it 'should alias reference' do
+        t = prepare do
+          ref @bill
+        end
+
+        expect(t.reference).to eq @bill
+      end
+
       it 'should be valid with balanced items' do
         t = prepare do
           credit @bank, 100

@@ -12,7 +12,7 @@ module Debitcredit
 
     def self.prepare(opts = {}, &block)
       new(opts).tap do |t|
-        Docile.dsl_eval(DSL.new(t), &block)
+        Docile.dsl_eval(Dsl.new(t), &block)
       end
     end
 

@@ -1,3 +1,7 @@
+*.0.0.9
+  - fixed name of the Dsl module
+  - dsl methods to set kind, description and reference
+
 *.0.0.8
   - fix blocks on DSL
 
