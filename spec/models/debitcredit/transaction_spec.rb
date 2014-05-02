@@ -112,7 +112,7 @@ module Debitcredit
 
     describe :prepare do
       it 'should allow using symbols for accounts' do
-        t = @john.transactions.prepare do
+        t = @john.entries.prepare do
           debit :equipment, 100
           credit :bank, 100
         end

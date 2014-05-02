@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  has_transactions do
-    def transactions_method
+  has_entries do
+    def entries_method
       :ok
     end
   end

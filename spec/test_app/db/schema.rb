@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20140130095257) do
   add_index "debitcredit_items", ["account_id"], name: "index_debitcredit_items_on_account_id"
   add_index "debitcredit_items", ["transaction_id"], name: "index_debitcredit_items_on_transaction_id"
 
-  create_table "debitcredit_transactions", force: true do |t|
+  create_table "debitcredit_entries", force: true do |t|
     t.integer  "reference_id"
     t.string   "reference_type",        limit: 32
     t.string   "kind"
@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 20140130095257) do
     t.integer  "parent_transaction_id"
   end
 
-  add_index "debitcredit_transactions", ["parent_transaction_id"], name: "index_debitcredit_transactions_on_parent_transaction_id"
-  add_index "debitcredit_transactions", ["reference_id", "reference_type", "id"], name: "rindex"
+  add_index "debitcredit_entries", ["parent_transaction_id"], name: "index_debitcredit_entries_on_parent_transaction_id"
+  add_index "debitcredit_entries", ["reference_id", "reference_type", "id"], name: "rindex"
 
   create_table "users", force: true do |t|
     t.string   "name"

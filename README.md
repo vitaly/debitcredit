@@ -16,7 +16,7 @@ Expense and Equity defined as follows:
 from which future economic benefits are expected to flow to the entity
 
 **Liability** is defined as an obligation of an entity arising from past
-transactions or events, the settlement of which may result in the transfer or
+entries or events, the settlement of which may result in the transfer or
 use of assets, provision of services or other yielding of economic benefits in
 the future.
 
@@ -86,7 +86,7 @@ Or better yet:
       include Debitcredit::Extension
 
       has_accounts
-      has_transactions do
+      has_entries do
         def pay!
           ...
         end
@@ -114,7 +114,7 @@ You can pass a block to `has_accounts` and to define referenced accounts:
 
 ## Transactions
 
-You can prepare transactions using DSL:
+You can prepare entries using DSL:
 
     t = Transaction.prepare(description: 'rent payment') do
       debit expense_account, 100, "you can also provide a comment"
@@ -126,10 +126,10 @@ You can prepare transactions using DSL:
 Sum of the debits must be equal to the sum of the credits. Amounts can not be
 negative.
 
-You can create transactions with a reference. For this case, and in case that
+You can create entries with a reference. For this case, and in case that
 reference has 'accounts' association, you can use account names instead of objects:
 
-    t = user1.transactions.prepare(description: 'sale') do
+    t = user1.entries.prepare(description: 'sale') do
       debit :checking, 100 # will use user1.accounts[:checking]
       credit user2.accounts[:checking], 100
     end
@@ -140,7 +140,7 @@ existing transaction:
 rollback = existing.inverse(kind: 'refund', description: 'item is out of stock')
 rollback.save!
 
-> Note: by inverse transactions are allowed to take accounts into overdraft. if
+> Note: by inverse entries are allowed to take accounts into overdraft. if
 > this is undesirable, pass `enable_overdraft` to the `inverse` call.
 
 ## Contributing
