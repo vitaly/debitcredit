@@ -112,7 +112,7 @@ You can pass a block to `has_accounts` and to define referenced accounts:
 
     User.first.accounts.salary # will be created on first use
 
-## Transactions
+## Entries
 
 You can prepare entries using DSL:
 

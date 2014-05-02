@@ -1,4 +1,4 @@
-class CreateDebitcreditTransactions < ActiveRecord::Migration
+class CreateDebitcreditEntries < ActiveRecord::Migration
   def change
     create_table :debitcredit_entries do |t|
       t.integer :reference_id,   null: true
