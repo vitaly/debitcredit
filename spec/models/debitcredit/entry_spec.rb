@@ -1,15 +1,15 @@
 require 'spec_helper'
 
 module Debitcredit
-  describe Transaction do
+  describe Entry do
     def valid_attrs
       {description: 'something', reference: @john}
     end
 
-    let(:transaction) {@laptop_purchase}
+    let(:entry) {@laptop_purchase}
 
     def prepare(opts = {}, &b)
-      @r = Transaction.prepare(valid_attrs.merge(opts), &b)
+      @r = Entry.prepare(valid_attrs.merge(opts), &b)
     end
 
     describe :validations do
@@ -112,7 +112,7 @@ module Debitcredit
 
     describe :prepare do
       it 'should allow using symbols for accounts' do
-        t = @john.transactions.prepare do
+        t = @john.entries.prepare do
           debit :equipment, 100
           credit :bank, 100
         end
@@ -122,19 +122,19 @@ module Debitcredit
 
     describe :inverse do
       it 'should take description and kind' do
-        inverse = transaction.inverse(description: 'foo', kind: 'rollback')
+        inverse = entry.inverse(description: 'foo', kind: 'rollback')
         expect(inverse.description).to eq 'foo'
         expect(inverse.kind).to eq 'rollback'
       end
 
       it 'should have inverted items' do
-        expect(transaction.items.sort_by(&:kind).map(&:account)).to eq [@amex, @equipment]
-        expect(transaction.inverse.items.sort_by(&:kind).map(&:account)).to eq [@equipment, @amex]
+        expect(entry.items.sort_by(&:kind).map(&:account)).to eq [@amex, @equipment]
+        expect(entry.inverse.items.sort_by(&:kind).map(&:account)).to eq [@equipment, @amex]
       end
 
       it 'should set ignore_overdraft to true' do
-        expect(transaction.ignore_overdraft).to be_false
-        expect(transaction.inverse.ignore_overdraft).to be_true
+        expect(entry.ignore_overdraft).to be_false
+        expect(entry.inverse.ignore_overdraft).to be_true
       end
     end
   end
