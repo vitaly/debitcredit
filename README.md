@@ -34,7 +34,7 @@ equity participants.
 difference between the total assets of the entity and all its liabilities.
 
 
-In each transaction, sources are credited and destinations are debited.
+In each entry, sources are credited and destinations are debited.
 
 I repeat: credit is the **source** and debit is the **destination**.
 
@@ -134,8 +134,8 @@ reference has 'accounts' association, you can use account names instead of objec
       credit user2.accounts[:checking], 100
     end
 
-You can prepare an inverse transaction. For example if you want to rollback an
-existing transaction:
+You can prepare an inverse entry. For example if you want to rollback an
+existing entry:
 
 rollback = existing.inverse(kind: 'refund', description: 'item is out of stock')
 rollback.save!

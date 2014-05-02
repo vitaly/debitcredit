@@ -1,12 +1,12 @@
 laptop_purchase_1:
-  transaction: laptop_purchase
+  entry: laptop_purchase
   account: equipment
   debit: true
   amount: 10_000
   balance: 10_000
 
 laptop_purchase_2:
-  transaction: laptop_purchase
+  entry: laptop_purchase
   account: amex
   debit: false
   amount: 10_000

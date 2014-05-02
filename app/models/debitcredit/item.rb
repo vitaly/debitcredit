@@ -1,9 +1,9 @@
 module Debitcredit
   class Item < ActiveRecord::Base
-    belongs_to :transaction
+    belongs_to :entry
     belongs_to :account
 
-    validate :transaction, :account, presence: true
+    validate :entry, :account, presence: true
     validate :amount, numericality: true, greater_than_or_equal_to: 0
 
     scope :debit, ->{where(debit: true)}
@@ -22,7 +22,7 @@ module Debitcredit
     end
 
     def inverse
-      self.class.new account: account, transaction: transaction, amount: amount, debit: credit?
+      self.class.new account: account, entry: entry, amount: amount, debit: credit?
     end
   end
 end
