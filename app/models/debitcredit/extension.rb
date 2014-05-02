@@ -19,7 +19,7 @@ module Debitcredit
       end
 
       def has_entries(&block)
-        has_many :entries, as: :reference, class_name: 'Debitcredit::Transaction' do
+        has_many :entries, as: :reference, class_name: 'Debitcredit::Entry' do
           def [](kind)
             find_by kind: kind
           end

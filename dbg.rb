@@ -1,7 +1,7 @@
 include Debitcredit
 
 Account.count
-Transaction.build do
+Entry.build do
   debit Account.first, 12.34, 'test 123'
 end
 

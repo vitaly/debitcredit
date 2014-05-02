@@ -116,7 +116,7 @@ You can pass a block to `has_accounts` and to define referenced accounts:
 
 You can prepare entries using DSL:
 
-    t = Transaction.prepare(description: 'rent payment') do
+    t = Entry.prepare(description: 'rent payment') do
       debit expense_account, 100, "you can also provide a comment"
       credit bank_account, 50
       credit creditcard, 50

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Debitcredit
-  describe Transaction do
+  describe Entry do
     def valid_attrs
       {description: 'something', reference: @john}
     end
@@ -9,7 +9,7 @@ module Debitcredit
     let(:entry) {@laptop_purchase}
 
     def prepare(opts = {}, &b)
-      @r = Transaction.prepare(valid_attrs.merge(opts), &b)
+      @r = Entry.prepare(valid_attrs.merge(opts), &b)
     end
 
     describe :validations do
