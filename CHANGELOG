@@ -1,5 +1,6 @@
 * 0.1.0
   - added defaults for inversed transactions
+  - added inverse_transaction_id
 
 *.0.0.9
   - fixed name of the Dsl module

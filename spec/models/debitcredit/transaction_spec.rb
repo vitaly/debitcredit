@@ -149,7 +149,18 @@ module Debitcredit
 
       it 'should set default parent_transaction_id' do
         inverse = transaction.inverse()
-        expect(inverse.reference).to eq transaction.reference
+        expect(inverse.parent_transaction).to eq transaction
+      end
+
+      it 'should set inverse_transaction_id on parent' do
+        inverse = transaction.inverse()
+        inverse.save!
+        expect(transaction.reload.inverse_transaction).to eq inverse
+      end
+
+      it 'should not allow inversing inversed transactions' do
+        transaction.inverse().save!
+        expect(transaction.inverse()).not_to be_valid
       end
 
       it 'should have inverted items' do
