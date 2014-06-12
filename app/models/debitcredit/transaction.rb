@@ -20,6 +20,9 @@ module Debitcredit
     def inverse(opts = {})
       self.class.new({ignore_overdraft: true}.merge(opts)) do |res|
         res.items = items.map(&:inverse)
+        res.description ||= "reverse of tr ##{id}: #{description}"
+        res.kind ||= 'rollback'
+        res.reference ||= reference
       end
     end
 

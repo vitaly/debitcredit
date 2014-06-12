@@ -121,10 +121,35 @@ module Debitcredit
     end
 
     describe :inverse do
+      it 'should be valid' do
+        inverse = transaction.inverse()
+        expect(inverse).to be_valid
+      end
+
       it 'should take description and kind' do
         inverse = transaction.inverse(description: 'foo', kind: 'rollback')
         expect(inverse.description).to eq 'foo'
         expect(inverse.kind).to eq 'rollback'
+      end
+
+      it 'should have default description' do
+        inverse = transaction.inverse(kind: 'rollback')
+        expect(inverse.description).to eq "reverse of tr ##{transaction.id}: apple MBPr"
+      end
+
+      it 'should have default kind' do
+        inverse = transaction.inverse()
+        expect(inverse.kind).to eq "rollback"
+      end
+
+      it 'should have default reference' do
+        inverse = transaction.inverse()
+        expect(inverse.reference).to eq transaction.reference
+      end
+
+      it 'should set default parent_transaction_id' do
+        inverse = transaction.inverse()
+        expect(inverse.reference).to eq transaction.reference
       end
 
       it 'should have inverted items' do
