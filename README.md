@@ -5,6 +5,17 @@
 
 Double Entry Accounting for Rails Applications
 
+## Installation
+
+* add `get 'debitcredit'` to your `Gemfile`
+* and run `bundle install`
+* run `rake debitcredit:install:migrations db:migrate`
+
+## Installation
+
+* and run `bundle update debitcredit`
+* run `rake debitcredit:install:migrations db:migrate`
+
 ## Account Types, Debits and Credits
 
 <http://en.wikipedia.org/wiki/Debits_and_credits>
