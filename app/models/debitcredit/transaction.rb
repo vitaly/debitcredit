@@ -4,7 +4,10 @@ module Debitcredit
     belongs_to :reference, polymorphic: true
     belongs_to :parent_transaction, class_name: 'Debitcredit::Transaction'
     belongs_to :inverse_transaction, class_name: 'Debitcredit::Transaction'
-    has_many :items, dependent: :destroy, autosave: true
+    has_many :items, class_name: 'Debitcredit::Item', dependent: :destroy, autosave: true
+    has_many :child_transactions, class_name: 'Debitcredit::Transaction', foreign_key: 'parent_transaction_id'
+    
+    accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
     validates :reference, :description, presence: true
     validate :ensure_balanced
