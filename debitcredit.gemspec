@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Debitcredit::VERSION
   s.authors     = ["Vitaly Kushner"]
   s.email       = ["vitaly@astrails.com"]
-  s.homepage    = "http://github.com/astrails/debitcredit"
+  s.homepage    = "http://github.com/vitaly/debitcredit"
   s.summary     = "Double entry accounting for Rails applications"
   s.description = "Double entry accounting for Rails applications"
 

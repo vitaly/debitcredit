@@ -3,6 +3,7 @@ module Debitcredit
   class Transaction < ActiveRecord::Base
     belongs_to :reference, polymorphic: true
     belongs_to :parent_transaction, class_name: 'Debitcredit::Transaction'
+    has_many :child_transactions, class_name: 'Debitcredit::Transaction', foreign_key: 'parent_transaction_id'
     belongs_to :inverse_transaction, class_name: 'Debitcredit::Transaction'
     has_many :items, dependent: :destroy, autosave: true
 

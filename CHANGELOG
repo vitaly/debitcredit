@@ -1,5 +1,6 @@
-* unreleased
+* 0.1.1
   - installation instructions
+  - child_transactions
 
 * 0.1.0
   - added defaults for inversed transactions
