@@ -1,7 +1,7 @@
 class CreateDebitcreditItems < ActiveRecord::Migration
   def change
     create_table :debitcredit_items do |t|
-      t.references :transaction, null: false
+      t.references :entry, null: false
       t.references :account,     null: false
       t.boolean    :debit,       null: false
       t.string     :comment,     null: true
@@ -10,6 +10,6 @@ class CreateDebitcreditItems < ActiveRecord::Migration
       t.timestamps
     end
     add_index :debitcredit_items, :account_id
-    add_index :debitcredit_items, :transaction_id
+    add_index :debitcredit_items, :entry_id
   end
 end

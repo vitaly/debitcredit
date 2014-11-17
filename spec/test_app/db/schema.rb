@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20140612113944) do
   add_index "debitcredit_accounts", ["name", "reference_id", "reference_type"], name: "uindex", unique: true
 
   create_table "debitcredit_items", force: true do |t|
-    t.integer  "transaction_id",                                        null: false
+    t.integer  "entry_id",                                        null: false
     t.integer  "account_id",                                            null: false
     t.boolean  "debit",                                                 null: false
     t.string   "comment"
@@ -38,21 +38,21 @@ ActiveRecord::Schema.define(version: 20140612113944) do
   end
 
   add_index "debitcredit_items", ["account_id"], name: "index_debitcredit_items_on_account_id"
-  add_index "debitcredit_items", ["transaction_id"], name: "index_debitcredit_items_on_transaction_id"
+  add_index "debitcredit_items", ["entry_id"], name: "index_debitcredit_items_on_entry_id"
 
-  create_table "debitcredit_transactions", force: true do |t|
+  create_table "debitcredit_entries", force: true do |t|
     t.integer  "reference_id"
     t.string   "reference_type",         limit: 32
     t.string   "kind"
     t.string   "description",                       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "parent_transaction_id"
-    t.integer  "inverse_transaction_id"
+    t.integer  "parent_entry_id"
+    t.integer  "inverse_entry_id"
   end
 
-  add_index "debitcredit_transactions", ["parent_transaction_id"], name: "index_debitcredit_transactions_on_parent_transaction_id"
-  add_index "debitcredit_transactions", ["reference_id", "reference_type", "id"], name: "rindex"
+  add_index "debitcredit_entries", ["parent_entry_id"], name: "index_debitcredit_entries_on_parent_entry_id"
+  add_index "debitcredit_entries", ["reference_id", "reference_type", "id"], name: "rindex"
 
   create_table "users", force: true do |t|
     t.string   "name"

@@ -1,5 +1,5 @@
 class AddInverseTransactionId < ActiveRecord::Migration
   def change
-    add_column :debitcredit_transactions, :inverse_transaction_id, :integer
+    add_column :debitcredit_entries, :inverse_entry_id, :integer
   end
 end

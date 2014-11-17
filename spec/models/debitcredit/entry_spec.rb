@@ -1,15 +1,15 @@
 require 'spec_helper'
 
 module Debitcredit
-  describe Transaction do
+  describe Entry do
     def valid_attrs
       {description: 'something', reference: @john}
     end
 
-    let(:transaction) {@laptop_purchase}
+    let(:entry) {@laptop_purchase}
 
     def prepare(opts = {}, &b)
-      @r = Transaction.prepare(valid_attrs.merge(opts), &b)
+      @r = Entry.prepare(valid_attrs.merge(opts), &b)
     end
 
     describe :validations do
@@ -112,7 +112,7 @@ module Debitcredit
 
     describe :prepare do
       it 'should allow using symbols for accounts' do
-        t = @john.transactions.prepare do
+        t = @john.entries.prepare do
           debit :equipment, 100
           credit :bank, 100
         end
@@ -122,55 +122,55 @@ module Debitcredit
 
     describe :inverse do
       it 'should be valid' do
-        inverse = transaction.inverse()
+        inverse = entry.inverse()
         expect(inverse).to be_valid
       end
 
       it 'should take description and kind' do
-        inverse = transaction.inverse(description: 'foo', kind: 'rollback')
+        inverse = entry.inverse(description: 'foo', kind: 'rollback')
         expect(inverse.description).to eq 'foo'
         expect(inverse.kind).to eq 'rollback'
       end
 
       it 'should have default description' do
-        inverse = transaction.inverse(kind: 'rollback')
-        expect(inverse.description).to eq "reverse of tr ##{transaction.id}: apple MBPr"
+        inverse = entry.inverse(kind: 'rollback')
+        expect(inverse.description).to eq "reverse of tr ##{entry.id}: apple MBPr"
       end
 
       it 'should have default kind' do
-        inverse = transaction.inverse()
+        inverse = entry.inverse()
         expect(inverse.kind).to eq "rollback"
       end
 
       it 'should have default reference' do
-        inverse = transaction.inverse()
-        expect(inverse.reference).to eq transaction.reference
+        inverse = entry.inverse()
+        expect(inverse.reference).to eq entry.reference
       end
 
-      it 'should set default parent_transaction_id' do
-        inverse = transaction.inverse()
-        expect(inverse.parent_transaction).to eq transaction
+      it 'should set default parent_entry_id' do
+        inverse = entry.inverse()
+        expect(inverse.parent_entry).to eq entry
       end
 
-      it 'should set inverse_transaction_id on parent' do
-        inverse = transaction.inverse()
+      it 'should set inverse_entry_id on parent' do
+        inverse = entry.inverse()
         inverse.save!
-        expect(transaction.reload.inverse_transaction).to eq inverse
+        expect(entry.reload.inverse_entry).to eq inverse
       end
 
-      it 'should not allow inversing inversed transactions' do
-        transaction.inverse().save!
-        expect(transaction.inverse()).not_to be_valid
+      it 'should not allow inversing inversed entrys' do
+        entry.inverse().save!
+        expect(entry.inverse()).not_to be_valid
       end
 
       it 'should have inverted items' do
-        expect(transaction.items.sort_by(&:kind).map(&:account)).to eq [@amex, @equipment]
-        expect(transaction.inverse.items.sort_by(&:kind).map(&:account)).to eq [@equipment, @amex]
+        expect(entry.items.sort_by(&:kind).map(&:account)).to eq [@amex, @equipment]
+        expect(entry.inverse.items.sort_by(&:kind).map(&:account)).to eq [@equipment, @amex]
       end
 
       it 'should set ignore_overdraft to true' do
-        expect(transaction.ignore_overdraft).to be_false
-        expect(transaction.inverse.ignore_overdraft).to be_true
+        expect(entry.ignore_overdraft).to be_false
+        expect(entry.inverse.ignore_overdraft).to be_true
       end
     end
   end

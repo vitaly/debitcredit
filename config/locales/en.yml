@@ -3,7 +3,7 @@ en:
   activerecord:
     errors:
       models:
-        debitcredit/transaction:
+        debitcredit/entry:
           unbalanced: item amounts must balance to 0
           already_inversed: parent transaction already inversed
         debitcredit/account:
