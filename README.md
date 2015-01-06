@@ -7,14 +7,22 @@ Double Entry Accounting for Rails Applications
 
 ## Installation
 
-* add `get 'debitcredit'` to your `Gemfile`
+* add `gem 'debitcredit'` to your `Gemfile`
 * and run `bundle install`
-* run `rake debitcredit:install:migrations db:migrate`
+* run `rake debitcredit:install:migrations db:migrate db:test:prepare`
 
-## Installation
+## Upgrade
 
 * and run `bundle update debitcredit`
 * run `rake debitcredit:install:migrations db:migrate`
+
+### IMPORTANT: version 0.2.0 introduced backwards incompatible changes:
+
+Transactions were renamed to entries. You need to rename:
+
+* Transaction to Entry
+* transactions to entries
+* has_transactions to has_entries
 
 ## Account Types, Debits and Credits
 
