@@ -3,8 +3,8 @@ module Debitcredit
     belongs_to :entry
     belongs_to :account
 
-    validate :entry, :account, presence: true
-    validate :amount, numericality: true, greater_than_or_equal_to: 0
+    validates :entry, :account, presence: true
+    validates :amount, numericality: {greater_than_or_equal_to: 0}
 
     scope :debit, ->{where(debit: true)}
     scope :credit, ->{where(debit: false)}
