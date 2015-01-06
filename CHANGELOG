@@ -1,3 +1,7 @@
+* 0.2.0
+  - support for rails >= 4.1
+  - updarted README
+
 * 0.1.1
   - installation instructions
   - child_transactions
