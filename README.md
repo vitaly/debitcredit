@@ -67,24 +67,6 @@ You can verify it with `Account.balanced?`.
 Debitcredit takes care to keep the system balanced at all times, if you get an
 unbalanced state, its a bug, please report immediately!
 
-## Usage
-
-Add it to your Gemfile:
-
-```
-gem 'debitcredit'
-```
-
-Then run:
-
-```
-$ bundle
-$ rails g debitcredit
-$ rake db:migrate
-```
-
-This will generate a migration for Debitcredit tables.
-
 ## Accounts
 
 The 5 types of accounts are represented by `Debitcredit::AssetAccount`,
