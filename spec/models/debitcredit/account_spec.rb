@@ -5,14 +5,14 @@ module Debitcredit
     def described_class; Debitcredit::AssetAccount; end
     def valid_attrs; {name: 'foo'} end
 
-    describe :by_kind do
+    describe '.by_kind' do
       it 'should find account class by kind' do
         klass = Account.by_kind(:asset)
         expect(klass).to eq(AssetAccount)
       end
     end
 
-    describe :validations do
+    describe 'validations' do
       include_examples :valid_fixtures
 
       context 'when overdraft disabled' do
@@ -65,7 +65,7 @@ module Debitcredit
       end
     end
 
-    describe :[] do
+    describe '[]' do
       it 'should find account by name' do
         expect(Account[:amex]).to eq(@amex)
       end
@@ -109,7 +109,7 @@ module Debitcredit
       end
     end
 
-    describe :balanced? do
+    describe '.balanced?' do
       it 'should initially be true' do
         expect(Account).to be_balanced
       end

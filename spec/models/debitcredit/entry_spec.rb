@@ -12,7 +12,7 @@ module Debitcredit
       @r = Entry.prepare(valid_attrs.merge(opts), &b)
     end
 
-    describe :validations do
+    describe 'validations' do
       include_examples :valid_fixtures
 
       it 'should set kind' do
@@ -110,7 +110,7 @@ module Debitcredit
       end
     end
 
-    describe :prepare do
+    describe '.prepare' do
       it 'should allow using symbols for accounts' do
         t = @john.entries.prepare do
           debit :equipment, 100
@@ -120,7 +120,7 @@ module Debitcredit
       end
     end
 
-    describe :inverse do
+    describe '.inverse' do
       it 'should be valid' do
         inverse = entry.inverse()
         expect(inverse).to be_valid
@@ -169,8 +169,8 @@ module Debitcredit
       end
 
       it 'should set ignore_overdraft to true' do
-        expect(entry.ignore_overdraft).to be_false
-        expect(entry.inverse.ignore_overdraft).to be_true
+        expect(entry.ignore_overdraft).to be_nil
+        expect(entry.inverse.ignore_overdraft).to eq true
       end
     end
   end
