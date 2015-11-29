@@ -2,7 +2,7 @@ module Debitcredit
   module Extension
     extend ActiveSupport::Concern
     module ProxyMethods
-      [:asset, :liability, :expense].each do |kind|
+      [:asset, :liability, :expense, :income, :equity].each do |kind|
         define_method kind do |name, overdraft = false|
           define_method name do
             self[name, kind, overdraft]
