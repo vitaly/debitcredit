@@ -55,16 +55,26 @@ from using the assets or increasing liabilities in delivering goods or services
 to a customer - the costs of doing business. e.g. telephone, electricity,
 salaries, depreciation, rent etc.
 
-In each entry, sources are credited and destinations are debited.
 
-I repeat: credit is the **source** and debit is the **destination**.
 
-debit and credit affect balance of an account differently depending on the
+Debit and credit affect balance of an account differently depending on the
 account type.
 
 For Asset and Expense accounts, Debit increases the balance, and credit
 decreases it. For the rest of the accounts it is the opposite. i.e. debit
 decreases and credit increases the balance.
+
+In each transaction sources are credited and destinations are debited.
+
+I repeat: credit is the **source** and debit is the **destination**.
+
+Personally, I was surprised to learn that. From my dealings with the bank I
+expectred 'credit' to be the destination, becase each time my bank account is
+'credited' I have more money in it.
+
+The explanation for this is simple, your bank sees your account not as an
+'asset', but as a 'liability', becase the balance on it is how much bank ows
+you. That's why crediting this account increases it's balance.
 
 ## Accounting Equation
 
@@ -107,11 +117,6 @@ Or better yet:
       include Debitcredit::Extension
 
       has_accounts
-      has_entries do
-        def pay!
-          ...
-        end
-      end
     end
 
 By default accounts are prevented from having a negative balance, but you can
@@ -150,6 +155,17 @@ negative.
 You can create entries with a reference. For this case, and in case that
 reference has 'accounts' association, you can use account names instead of objects:
 
+    class User
+      include Debitcredit::Extension
+
+      has_accounts
+      has_entries do
+        def pay!
+          ...
+        end
+      end
+    end
+
     t = user1.entries.prepare(description: 'sale') do
       debit :checking, 100 # will use user1.accounts[:checking]
       credit user2.accounts[:checking], 100
@@ -161,8 +177,16 @@ existing entry:
 rollback = existing.inverse(kind: 'refund', description: 'item is out of stock')
 rollback.save!
 
-> Note: by inverse entries are allowed to take accounts into overdraft. if
-> this is undesirable, pass `enable_overdraft` to the `inverse` call.
+### Overdraft
+
+If an account doesn't allow overdraft (which is the default), no transaction
+will be allowed to decrease the blance if result is negative. The 'decrease'
+part is important, so that it's still ok to have a transaction that increases
+the balance which was negative.
+
+By default inverse entries are allowed to take accounts into overdraft even for
+accounts with `overdraft_enabled: false`.  if this is undesirable, pass
+`ignore_overdraft: false` to the `inverse` call.
 
 ## Contributing
 
