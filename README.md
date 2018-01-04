@@ -31,27 +31,29 @@ Transactions were renamed to entries. You need to rename:
 In Double Entry Accounting there are 5 account types: Asset, Liability, Income,
 Expense and Equity defined as follows:
 
-**Asset** is a resource controlled by the entity as a result of past events and
-from which future economic benefits are expected to flow to the entity
+**Asset** accounts are economic resources which benefit the business/entity and
+will continue to do so. e.g. cash, bank, inventory, buildings, etc.
 
-**Liability** is defined as an obligation of an entity arising from past
-entries or events, the settlement of which may result in the transfer or
-use of assets, provision of services or other yielding of economic benefits in
-the future.
+**Liability** accounts record debts or future obligations the business/entity
+owes to others.
+
+**Equity** accounts record the claims of the owners of the business/entity to
+the assets of that business/entity. e.g. capital, retained earnings, drawings,
+common stock, accumulated funds, etc.
 
 **Income** is increases in economic benefits during the accounting period in
 the form of inflows or enhancements of assets or decreases of liabilities that
 result in increases in equity, other than those relating to contributions from
 equity participants.
 
-**Expense** is a decrease in economic benefits during the accounting period in
-the form of outflows or depletions of assets or incurrences of liabilities that
-result in decreases in equity, other than those relating to distributions to
-equity participants.
+**Income** accounts record all increases in Equity other than that contributed
+by the owner/s of the business/entity. e.g. services rendered, sales, interest
+income, membership fees, rent income, etc.
 
-**Equity** consists of the net assets of an entity. Net assets is the
-difference between the total assets of the entity and all its liabilities.
-
+**Expense** accounts record all decreases in the owners' equity which occur
+from using the assets or increasing liabilities in delivering goods or services
+to a customer - the costs of doing business. e.g. telephone, electricity,
+salaries, depreciation, rent etc.
 
 In each entry, sources are credited and destinations are debited.
 
