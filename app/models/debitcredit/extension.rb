@@ -10,10 +10,14 @@ module Debitcredit
         end
       end
     end
-    module ClassMethods
+
+    class_methods do
       def has_accounts(&block)
         has_many :accounts, as: :reference, class_name: 'Debitcredit::Account', inverse_of: :reference do
           extend ProxyMethods
+          def [](name, kind = nil, overdraft = false)
+            find_or_create(name, kind, overdraft)
+          end
           class_eval(&block) if block
         end
       end

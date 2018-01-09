@@ -1,7 +1,5 @@
-require 'spec_helper'
-
 module Debitcredit
-  describe Item do
+  RSpec.describe Item do
     include_examples :valid_fixtures
     def valid_attrs; {entry: @laptop_purchase, account: @equipment, debit: true, amount: 10} end
 

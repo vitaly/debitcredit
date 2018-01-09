@@ -1,4 +1,1 @@
---drb
---color
---format d
---profile
+--require rails_helper

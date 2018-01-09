@@ -1,5 +1,5 @@
 module Debitcredit
-  class Item < ActiveRecord::Base
+  class Item < ApplicationRecord
     belongs_to :entry
     belongs_to :account
 

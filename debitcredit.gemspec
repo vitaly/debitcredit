@@ -12,21 +12,13 @@ Gem::Specification.new do |s|
   s.homepage    = "http://github.com/vitaly/debitcredit"
   s.summary     = "Double entry accounting for Rails applications"
   s.description = "Double entry accounting for Rails applications"
+  s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  s.add_dependency "rails", ">= 4.0.4"
+  s.add_dependency "rails", "~> 5.1.4"
   s.add_dependency "docile"
 
   s.add_development_dependency "sqlite3"
-  s.add_development_dependency "rspec-rails"
-  s.add_development_dependency "byebug"
-  s.add_development_dependency "pry-byebug"
-  s.add_development_dependency 'spork'
-  s.add_development_dependency "spork-rails"
-  #s.add_development_dependency 'timecop'
-  s.add_development_dependency 'guard-bundler'
-  s.add_development_dependency 'guard-spork'
-  s.add_development_dependency 'guard-rspec'
-  s.add_development_dependency 'pg'
+  s.add_development_dependency "rspec-rails", "~> 3.7.2"
 end

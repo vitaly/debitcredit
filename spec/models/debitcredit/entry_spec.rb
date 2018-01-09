@@ -1,7 +1,5 @@
-require 'spec_helper'
-
 module Debitcredit
-  describe Entry do
+  RSpec.describe Entry do
     def valid_attrs
       {description: 'something', reference: @john}
     end

@@ -1,7 +1,7 @@
 require 'docile'
 module Debitcredit
-  class Account < ActiveRecord::Base
-    belongs_to :reference, polymorphic: true
+  class Account < ApplicationRecord
+    belongs_to :reference, polymorphic: true, optional: true
     has_many :items, dependent: :destroy
 
     validates :name, :balance, presence: true
@@ -22,10 +22,11 @@ module Debitcredit
         Debitcredit.const_get "#{kind.to_s.capitalize}Account"
       end
 
-      def [](name, kind = nil, overdraft = false)
+      def find_or_create(name, kind = nil, overdraft = false)
 
         unless account = find_by(name: name)
-          # XXX reference from @association.owner
+          # Note: reference is automatically provided by association
+          # when running through an association, e.g. @user.accounts[ .... ]
           raise NotFound, "account #{name} not found. Provide kind to create a new one" unless kind
 
           return by_kind(kind).create!(
@@ -42,6 +43,7 @@ module Debitcredit
 
         return account
       end
+      alias :[] :find_or_create
 
       def total_balance
         + asset.sum(:balance) \

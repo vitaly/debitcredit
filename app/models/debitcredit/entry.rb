@@ -1,10 +1,10 @@
 require 'docile'
 module Debitcredit
-  class Entry < ActiveRecord::Base
-    belongs_to :reference, polymorphic: true
-    belongs_to :parent_entry, class_name: 'Debitcredit::Entry'
+  class Entry < ApplicationRecord
+    belongs_to :reference, polymorphic: true, optional: true
+    belongs_to :parent_entry, class_name: 'Debitcredit::Entry', optional: true
     has_many :child_entries, class_name: 'Debitcredit::Entry', foreign_key: 'parent_entry_id'
-    belongs_to :inverse_entry, class_name: 'Debitcredit::Entry'
+    belongs_to :inverse_entry, class_name: 'Debitcredit::Entry', optional: true
     has_many :items, dependent: :destroy, autosave: true, inverse_of: :entry
 
     validates :reference, :description, presence: true

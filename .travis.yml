@@ -1,3 +1,6 @@
 language: ruby
+script:
+  - bundle exec rake db:migrate RAILS_ENV=test
+  - bundle exec rake
 rvm:
-  - 2.1.4
+  - 2.4.2

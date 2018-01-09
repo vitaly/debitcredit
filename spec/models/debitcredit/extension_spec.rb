@@ -1,7 +1,5 @@
-require 'spec_helper'
-
 module Debitcredit
-  describe Extension do
+  RSpec.describe Extension do
     describe 'has_accounts' do
       it 'should define methods that create accounts' do
         acc = @john.accounts.cash

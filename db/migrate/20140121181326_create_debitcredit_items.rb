@@ -1,4 +1,4 @@
-class CreateDebitcreditItems < ActiveRecord::Migration
+class CreateDebitcreditItems < ActiveRecord::Migration[4.2]
   def change
     create_table :debitcredit_items do |t|
       t.references :transaction, null: false
