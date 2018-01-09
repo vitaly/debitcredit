@@ -9,7 +9,7 @@ Double Entry Accounting for Rails Applications
 
 * add `gem 'debitcredit'` to your `Gemfile`
 * and run `bundle install`
-* run `rake debitcredit:install:migrations db:migrate db:test:prepare`
+* run `rake debitcredit:install:migrations db:migrate`
 
 ## Upgrade
 
